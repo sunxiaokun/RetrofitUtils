@@ -15,6 +15,8 @@ public abstract class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
     private String baseUrl = "http://sss.sss.cc/";
 
 
+
+
     public String getBaseUrl() {
         return baseUrl;
     }

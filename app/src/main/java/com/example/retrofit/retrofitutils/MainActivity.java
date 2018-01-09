@@ -2,6 +2,7 @@ package com.example.retrofit.retrofitutils;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.retrofit.retrofitlibrary.utils.HttpUtils;
 import com.example.retrofit.retrofitlibrary.utils.ResultInterface;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.mNoticeBeanList = new ArrayList<>();
         initData();
+
+        Toast.makeText(this,"Test", Toast.LENGTH_LONG).show();
 
     }
 
