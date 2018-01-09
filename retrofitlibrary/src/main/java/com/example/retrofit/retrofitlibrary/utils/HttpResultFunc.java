@@ -12,7 +12,7 @@ import rx.functions.Func1;
 
 public abstract class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
 
-    private String baseUrl = "http://sjz.ihotels.cc/";
+    private String baseUrl = "http://sss.sss.cc/";
 
 
     public String getBaseUrl() {
