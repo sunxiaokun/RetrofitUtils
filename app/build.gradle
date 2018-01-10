@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy-MM-dd HH:mm:dd')
+    return formattedDate
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -8,7 +14,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName APP_VERSION
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -19,12 +25,67 @@ android {
         }
 
     }
+
+    flavorDimensions("default")
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            applicationIdSuffix ".debug"
+        }
     }
+
+
+
+
+    //修改生成的apk名字及输出文件夹
+    applicationVariants.all {
+        variant ->
+            variant.outputs.each { output ->
+                //新名字
+                def newName
+                //时间戳
+                def timeNow
+                //输出文件夹
+                def outDirectory
+                //是否为Jenkins打包，输出路径不同
+                if ("true".equals(IS_JENKINS)) {
+                    //Jenkins打包输出到服务器路径
+                    timeNow = BUILD_TIME
+                    //BUILD_PATH为服务器输出路径
+                    outDirectory = output.outputFile.getParent()
+
+                    newName = 'RetrofitUtils-v' + APP_VERSION + '-' + variant.buildType.name + '.apk'
+                } else {
+                    //本机打包输出在本机路径
+                    timeNow = getDate()
+                    outDirectory = "./Desktop/apk"
+                    if ('debug'.equals(variant.buildType.name)) {
+                        newName = "RetrofitUtils-v${APP_VERSION}-debug.apk"
+                    } else {
+
+                        newName = 'RetrofitUtils-v' + APP_VERSION + '-'+ variant.buildType.name + '.apk'
+                    }
+                }
+                output.outputFileName = new File(outDirectory + '/' + timeNow, newName)
+            }
+
+            if (project.hasProperty('KEY_ALIAS') && project.hasProperty('STORE_FILE_PAHT') &&
+                    project.hasProperty('STORE_PASSWORD') &&
+                    project.hasProperty('KEY_PASSWORD')) {
+                android.signingConfigs.release.keyAlias = KEY_ALIAS
+                android.signingConfigs.release.storeFile = file(STORE_FILE_PATH)
+                android.signingConfigs.release.storePassword = STORE_PASSWORD
+                android.signingConfigs.release.keyPassword = KEY_PASSWORD
+            } else {
+                android.buildTypes.release.signingConfig = null
+            }
+    }
+
+
 }
 
 dependencies {
