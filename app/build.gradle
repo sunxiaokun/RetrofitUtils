@@ -57,7 +57,7 @@ android {
                     //Jenkins打包输出到服务器路径
                     timeNow = BUILD_TIME
                     //BUILD_PATH为服务器输出路径
-                    outDirectory = output.outputFile.getParent()
+                    outDirectory = output.outputFile.name
 
                     newName = 'RetrofitUtils-v' + APP_VERSION + '-' + variant.buildType.name + '.apk'
                 } else {
