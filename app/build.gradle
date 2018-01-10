@@ -67,11 +67,10 @@ android {
                     if ('debug'.equals(variant.buildType.name)) {
                         newName = "RetrofitUtils-v${APP_VERSION}-debug.apk"
                     } else {
-
                         newName = 'RetrofitUtils-v' + APP_VERSION + '-'+ variant.buildType.name + '.apk'
                     }
                 }
-                output.outputFileName = new File(outDirectory + '/' + timeNow, newName)
+                output.outputFileName = new File(newName)
             }
 
             if (project.hasProperty('KEY_ALIAS') && project.hasProperty('STORE_FILE_PAHT') &&
