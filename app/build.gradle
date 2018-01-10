@@ -27,6 +27,7 @@ android {
     }
 
     flavorDimensions("default")
+
     buildTypes {
         release {
             minifyEnabled false
