@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this,"Test", Toast.LENGTH_LONG).show();
 
+
     }
 
     private void initData() {
