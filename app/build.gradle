@@ -64,7 +64,7 @@ android {
                     //BUILD_PATH为服务器输出路径
                     outDirectory = output.outputFile.name
 
-                    newName = 'RetrofitUtils-v' + APP_VERSION + '--' + variant.buildType.name + '.apk'
+                    newName = 'RetrofitUtils-v' + APP_VERSION + '-' + variant.buildType.name + '.apk'
                 } else {
                     //本机打包输出在本机路径
                     timeNow = getDate()
